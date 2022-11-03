@@ -8,8 +8,8 @@ Trying to make a Synth
 
 ## If you plan to collaborate with one or two classmates, what are their names?
 
-Isaac Kraus
+Isaac Kraus and Anthony Eckert
 
 ## Do you have any questions of your own?
 
-TODO
+Nope
