@@ -1,0 +1,13 @@
+*.pdb
+*.pickle
+*.dylib
+*.so
+*.so.4
+*.so.0
+*.dbg
+*.mdmp
+*.bat
+*.cmd
+*.dxvk-cache
+*.pl
+/.idea/workspace.xml
