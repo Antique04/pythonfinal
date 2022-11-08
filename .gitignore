@@ -10,4 +10,4 @@
 *.cmd
 *.dxvk-cache
 *.pl
-*.xml
+/.idea/workspace.xml
