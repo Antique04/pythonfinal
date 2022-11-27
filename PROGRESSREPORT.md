@@ -23,8 +23,8 @@ We initially planned to make a synth without any real specificity, but we have p
 
 #### What have you not done for your project yet?
 
-We need to create a reverb for the sound, fix the popping noise when a key stops being pressed, edit the tone of the noise to more closely resemble the Taco Bell bong, and fix the attack and releases so they align with the bong. 
+The next stage is to code in the dsp script for the actual synth, using our understanding of the way the original sound is achieved we can reverse engineer it and execute it through raw code in our script.
 
 #### What problems, if any, have you encountered?
 
-We initially wanted to program a plugin from scratch but quickly realized this was out of the scope of the project as neither of us know C++ and Python is not widely adopted for VSTs. However, the framework we are using lacks tutorials, so we have struggled a bit understanding how it works, but we are continuing to work on it. 
+We initially wanted to program a plugin from scratch but quickly realized this was out of the scope of the project as neither of us know C++ and Python is not widely adopted for VSTs. However, the framework we are using lacks some documentation, so we have struggled a bit understanding how it works, but we are continuing to work on it. 
