@@ -17,8 +17,8 @@ double currentPitchOffset=0;
 uint8  currentNote=0;
 const double period=2*PI;
 
-double amplitudeAttackCoeff=0;
-double amplitudeReleaseCoeff=0;
+double amplitudeAttackCoeff=.001;
+double amplitudeReleaseCoeff=.0000002; // how long it takes to fade out
 double omegaCoeff=0;
 
 MidiEvent tempEvent;
@@ -29,7 +29,7 @@ void handleMidiEvent(const MidiEvent& evt)
     {
     case kMidiNoteOn:
         {
-            amplitude=double(MidiEventUtils::getNoteVelocity(evt))/127.0;
+            amplitude=0.1; // SETS VOLUME OF NOTE
             currentNote=MidiEventUtils::getNote(evt);
             omega=2*PI*pow(2,((double(currentNote-69.0)+currentPitchOffset)/12.0))*440.0/sampleRate;
             break;
@@ -84,9 +84,10 @@ void processBlock(BlockData& data)
 
         // update amplitude and omega
         if(amplitude>currentAmplitude)
-            currentAmplitude+=amplitudeAttackCoeff*(amplitude-currentAmplitude);
-        else
-            currentAmplitude+=amplitudeReleaseCoeff*(amplitude-currentAmplitude);
+            currentAmplitude+=amplitudeAttackCoeff;
+        if (amplitude < currentAmplitude)
+            
+            currentAmplitude-=amplitudeReleaseCoeff;
         currentOmega+=omegaCoeff*(omega-currentOmega);
 
         // compute sample value
@@ -110,7 +111,7 @@ void processBlock(BlockData& data)
 void updateInputParametersForBlock(const TransportInfo@ info)
 {
     amplitudeAttackCoeff=pow(10,1.0/(50+sampleRate*inputParameters[kAttackParam]))-1;
-    amplitudeReleaseCoeff=pow(10,1.0/(50+sampleRate*inputParameters[kReleaseParam]))-1;
+    //amplitudeReleaseCoeff=pow(10,1.0/(50+sampleRate*inputParameters[kReleaseParam]))-1;
     omegaCoeff=pow(10,1.0/(10+.15*sampleRate*inputParameters[kPitchSmoothParam]))-1;
 }
 
