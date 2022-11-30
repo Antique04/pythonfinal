@@ -8,8 +8,9 @@
   <!-- The image uses the "layer_stack" layout type so that the knobs can be placed using absolute positions -->
   <IMAGE image="$SCRIPT_DATA_PATH$/tacobell.png" repeat="true" rotate="90" width="500" height="200" image_scaling="0.2" layout_type="layer_stack">
     <TEXT value="Taco Bell Bong" v_align="top" font="Impact" font_size="50" font_weight="bold" text_color="#ee208f"/>
-      <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="90" v_position="40" param_id="custom_param0" images_count="147" image_scaling=".6" pixel_range="300" cursor="system::hand"/>
+      <!--<IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="90" v_position="40" param_id="custom_param0" images_count="147" image_scaling=".6" pixel_range="300" cursor="system::hand"/>
       <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="205" v_position="100" param_id="custom_param1" images_count="147" image_scaling=".8" pixel_range="400" cursor="system::hand"/>
       <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="342" v_position="40" param_id="custom_param2" images_count="147" image_scaling=".6" pixel_range="300" cursor="system::hand"/>
+      -->
   </IMAGE>
 </SKIN>

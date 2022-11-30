@@ -19,7 +19,7 @@ const double period=2*PI;
 
 double amplitudeAttackCoeff=.001;
 double amplitudeReleaseCoeff=.0000002; // how long it takes to fade out
-double omegaCoeff=0;
+double omegaCoeff=0.5; // no clue what this does but it cannot be 0 or 1
 
 MidiEvent tempEvent;
 
@@ -54,16 +54,21 @@ void handleMidiEvent(const MidiEvent& evt)
 string name="Taco Bell Synth";
 string description="Monophonic sine wave synth";
 
+/*
 string[] inputParametersNames={"Attack", "Release", "Pitch Attack"};
 double[] inputParameters(inputParametersNames.length);
 double[] inputParametersDefault={.5,.5,.5};
+*/
+
+double kPitchSmoothParam=0;
 
 enum SynthParams
 {
     kAttackParam = 0,
-    kReleaseParam,
-    kPitchSmoothParam
+    kReleaseParam, 
 };
+
+
 
 /** per-block processing function: called for every sample with updated parameters values.
 *
@@ -108,12 +113,14 @@ void processBlock(BlockData& data)
         currentPhase-=period;
 }
 
+/*
 void updateInputParametersForBlock(const TransportInfo@ info)
 {
-    amplitudeAttackCoeff=pow(10,1.0/(50+sampleRate*inputParameters[kAttackParam]))-1;
+    //amplitudeAttackCoeff=pow(10,1.0/(50+sampleRate*inputParameters[kAttackParam]))-1;
     //amplitudeReleaseCoeff=pow(10,1.0/(50+sampleRate*inputParameters[kReleaseParam]))-1;
     omegaCoeff=pow(10,1.0/(10+.15*sampleRate*inputParameters[kPitchSmoothParam]))-1;
 }
+*/
 
 int getTailSize()
 {
