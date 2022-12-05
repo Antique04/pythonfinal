@@ -65,7 +65,7 @@ void handleMidiEvent(const MidiEvent& evt)
 // dsp script interface--------------------------
 
 string name="Taco Bell Synth";
-string description="Monophonic sine wave synth";
+string description="Created by Isaac Kraus and Anthony Eckert";
 
 /*
 string[] inputParametersNames={"Attack", "Release", "Pitch Attack"};
