@@ -1,6 +1,7 @@
 /** \file
 * Based on examples of simple additive synths
 * Uses hard coded params to emulate the sound of the taco bell bong, which is actually a preset of a yamaha dx7
+* Anthony Eckert and Isaac Kraus
 */
 
 #include "../scripts/library/Midi.hxx"       // Included libraries within Blue Cat Audio's script creation 
@@ -19,13 +20,13 @@ uint8  octaveNote = 0;
 const double period=2*PI;
 
 double amplitudeAttackCoeff = pow(10, 1.0 / (50 + .5 * sampleRate * 0.1)) - 1; //hard formula for attack
-double amplitudeReleaseCoeff= pow(10, 1.0 / (50 + .5 * sampleRate * 40)) - 1; // hard formula for release
+double amplitudeReleaseCoeff= pow(10, 1.0 / (50 + .5 * sampleRate * 60)) - 1; // hard formula for release
 double omegaCoeff=0.5; // no clue what this does but it cannot be 0 or 1
 
 MidiEvent tempEvent;
 
 uint activeVoicesCount=0;
-array<SynthVoice> voices(2); // this chunk of stuff stolen from "sin synth poly" preset if u wanna help incorporating
+array<SynthVoice> voices(1); // this chunk of stuff stolen from "sin synth poly" preset if u wanna help incorporating
 // The poly one has the ability to do like 24 voices, we only need two and they can be set by the script (e and then E up an octave)
 // w two different amplitudes/releases. Gonna keep working at it idk if that makes sense
 SynthVoice tempVoice;
@@ -42,7 +43,7 @@ void handleMidiEvent(const MidiEvent& evt)
             currentNote=MidiEventUtils::getNote(evt); 
             activeVoicesCount++;
             //voices[activeVoicesCount].NoteOn(evt);
-            octaveNote = currentNote + 3; // I think we can use this eventually to make a second noise? i dunno im confusd
+            octaveNote = currentNote + 1; // I think we can use this eventually to make a second noise? i dunno im confusd
             omega=2*PI*pow(2,((double(currentNote-69.0)+currentPitchOffset)/12.0))*440.0/sampleRate;
             break;
         }
@@ -75,11 +76,6 @@ double[] inputParametersDefault={.5,.5,.5};
 
 
 
-enum SynthParams
-{
-    kAttackParam = 0,
-    kReleaseParam, 
-};
 
 
 
@@ -106,10 +102,11 @@ void processBlock(BlockData& data)
         if (amplitude < currentAmplitude)
             
             currentAmplitude-=amplitudeReleaseCoeff;
-        currentOmega+=omegaCoeff*(omega-currentOmega);
+            currentOmega+=omegaCoeff*(omega-currentOmega);
 
         // compute sample value
-        double sampleValue=currentAmplitude*sin(currentPhase);
+        // this is where harmonic tunings were taken from the yamaha synth preset
+        double sampleValue = currentAmplitude * (1 * sin(currentPhase * 3.5) +  sin(currentPhase) + 1 * sin(currentPhase * 1.5) + 1 * sin(currentPhase * 0.5) + 5 * sin(currentPhase * 3));
 
         // update phase
         currentPhase+=currentOmega;
