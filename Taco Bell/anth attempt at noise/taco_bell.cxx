@@ -44,7 +44,7 @@ void handleMidiEvent(const MidiEvent& evt)
             activeVoicesCount++;
             //voices[activeVoicesCount].NoteOn(evt);
             octaveNote = currentNote + 1; // I think we can use this eventually to make a second noise? i dunno im confusd
-            omega=2*PI*pow(2,((double(currentNote-69.0)+currentPitchOffset)/12.0))*440.0/sampleRate;
+            omega = 2 * PI * pow(2, ((double(currentNote - 69.0) + currentPitchOffset) / 12.0)) * 440.0 / sampleRate;
             break;
         }
     case kMidiNoteOff:
@@ -111,7 +111,7 @@ void processBlock(BlockData& data)
         // update phase
         currentPhase+=currentOmega;
 
-        //audioOutputsCount = 1;
+        //audioOutputsCount = 2;
 
         // copy to all outputs
         for(uint ch=0;ch<audioOutputsCount;ch++)
