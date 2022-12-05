@@ -1,9 +1,9 @@
 /** \file
-*   Monophonic sine wave synth with simple envelope.
-*   Simple monophonic synthesizer with amplitude and pitch envelope controls.
+* Based on examples of simple additive synths
+* Uses hard coded params to emulate the sound of the taco bell bong, which is actually a preset of a yamaha dx7
 */
 
-#include "../scripts/library/Midi.hxx"
+#include "../scripts/library/Midi.hxx"       // Included libraries within Blue Cat Audio's script creation 
 #include "../scripts/library/Constants.hxx"
 
 // internal processing properties and functions---------------------
@@ -18,8 +18,8 @@ uint8  currentNote=0;
 uint8  octaveNote = 0;
 const double period=2*PI;
 
-double amplitudeAttackCoeff=.001;
-double amplitudeReleaseCoeff=.0000002; // how long it takes to fade out
+double amplitudeAttackCoeff = pow(10, 1.0 / (50 + .5 * sampleRate * 0.1)) - 1; //hard formula for attack
+double amplitudeReleaseCoeff= pow(10, 1.0 / (50 + .5 * sampleRate * 40)) - 1; // hard formula for release
 double omegaCoeff=0.5; // no clue what this does but it cannot be 0 or 1
 
 MidiEvent tempEvent;
@@ -42,7 +42,7 @@ void handleMidiEvent(const MidiEvent& evt)
             currentNote=MidiEventUtils::getNote(evt); 
             activeVoicesCount++;
             //voices[activeVoicesCount].NoteOn(evt);
-            octaveNote = currentNote + 12; // I think we can use this eventually to make a second noise? i dunno im confusd
+            octaveNote = currentNote + 3; // I think we can use this eventually to make a second noise? i dunno im confusd
             omega=2*PI*pow(2,((double(currentNote-69.0)+currentPitchOffset)/12.0))*440.0/sampleRate;
             break;
         }
