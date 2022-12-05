@@ -1,7 +1,6 @@
 /** \file
 * Based on examples of simple additive synths
 * Uses hard coded params to emulate the sound of the taco bell bong, which is actually a preset of a yamaha dx7
-* Anthony Eckert and Isaac Kraus
 */
 
 #include "../scripts/library/Midi.hxx"       // Included libraries within Blue Cat Audio's script creation 
@@ -26,88 +25,12 @@ double omegaCoeff=0.5; // no clue what this does but it cannot be 0 or 1
 MidiEvent tempEvent;
 
 uint activeVoicesCount=0;
-array<SynthVoice> voices(24); // this chunk of stuff stolen from "sin synth poly" preset if u wanna help incorporating
+array<SynthVoice> voices(2); // this chunk of stuff stolen from "sin synth poly" preset if u wanna help incorporating
 // The poly one has the ability to do like 24 voices, we only need two and they can be set by the script (e and then E up an octave)
 // w two different amplitudes/releases. Gonna keep working at it idk if that makes sense
 SynthVoice tempVoice;
 
-class SynthVoice
-{
-    double amplitude = 0;
-    double omega = 0;
-
-    double currentAmplitude = 0;
-    double currentPhase = 0;
-
-    int    currentNote = -1;
-    bool   waitingForPedalRelease;
-
-    // handle note on operation
-    void NoteOn(const MidiEvent& evt)
-    {
-        amplitude = double(MidiEventUtils::getNoteVelocity(evt)) / 127.0;
-        currentNote = MidiEventUtils::getNote(evt);
-        omega = 2 * PI * pow(2, ((double(currentNote - 69.0) + currentPitchOffset) / 12.0)) * 440.0 / sampleRate;
-    }
-
-    void NoteOff()
-    {
-        if (!pedalIsDown)
-            // set amplitude to zero. Voice will be freed only when amplitude gets close to zero
-            amplitude = 0;
-        else
-            // remember that note off has been called - will actually release the note later, when the pedal is released
-            waitingForPedalRelease = true;
-    }
-
-    void ForcePitch()
-    {
-        omega = 2 * PI * pow(2, ((double(currentNote - 69.0) + currentPitchOffset) / 12.0)) * 440.0 / sampleRate;
-    }
-
-    // returns true if voice ended
-    double ProcessSample()
-    {
-        double sampleValue = 0;
-
-        // update amplitude
-        currentAmplitude += amplitudeCoeff * (amplitude - currentAmplitude);
-        if (amplitude == 0 && currentAmplitude < .0001)
-        {
-            // value below threshold => the voice ended
-
-            // if not the last voice in the list
-            if (voices[activeVoicesCount - 1] != this)
-            {
-                // swap with last voice in the list
-                this = voices[activeVoicesCount - 1];
-                voices[activeVoicesCount - 1].CancelNote();
-
-                // decrease voices count
-                activeVoicesCount--;
-
-                // process swaped voice instead of this one
-                return ProcessSample();
-            }
-            else
-            {
-                // cancel current note
-                CancelNote();
-
-                // decrease voices count
-                activeVoicesCount--;
-                return 0;
-            }
-        }
-
-        // compute sample value
-        sampleValue = currentAmplitude * (4 * sin(currentPhase * .5) + 5 * sin(currentPhase) + 5 * sin(currentPhase * 1.5) + 5 * sin(currentPhase * 2) + 5 * sin(currentPhase * 3));
-
-        // update phase
-        currentPhase += omega;
-        return sampleValue;
-    }
-}
+class SynthVoice{};
 
 void handleMidiEvent(const MidiEvent& evt)
 {
@@ -165,47 +88,48 @@ enum SynthParams
 */
 void processBlock(BlockData& data)
 {
-    // smooth gain update: use begin and end values
-    // since the actual gain is exponential, we can use the ratio between begin and end values
-    // as an incremental multiplier for the actual gain
-   // double gainDiff = data.endParamValues[kGainParam] - data.beginParamValues[kGainParam];
-    //double gainRatio = 1;
-   // if (gainDiff != 0)
-   //     gainRatio = pow(10, gainDiff / double(data.samplesToProcess) * 2);
+    uint nextEventIndex=0;
 
-    uint nextEventIndex = 0;
-    for (uint i = 0; i < data.samplesToProcess; i++)
+    MidiEventUtils::setType(tempEvent,kMidiPitchWheel);
+    for(uint i=0;i<data.samplesToProcess;i++)
     {
         // manage MIDI events
-        while (nextEventIndex != data.inputMidiEvents.length && data.inputMidiEvents[nextEventIndex].timeStamp <= double(i))
+        while(nextEventIndex!=data.inputMidiEvents.length && data.inputMidiEvents[nextEventIndex].timeStamp<=double(i))
         {
             handleMidiEvent(data.inputMidiEvents[nextEventIndex]);
             nextEventIndex++;
         }
 
+        // update amplitude and omega
+        if(amplitude>currentAmplitude)
+            currentAmplitude+=amplitudeAttackCoeff;
+        if (amplitude < currentAmplitude)
+            
+            currentAmplitude-=amplitudeReleaseCoeff;
+        currentOmega+=omegaCoeff*(omega-currentOmega);
+
         // compute sample value
-        double sampleValue = 0;
-        for (uint v = 0; v < activeVoicesCount; v++)
-        {
-            sampleValue += voices[v].ProcessSample();
-        }
-        sampleValue *= gain;
+        double sampleValue=currentAmplitude*sin(currentPhase);
 
-        // copy value to all outputs
-        for (uint ch = 0; ch < audioOutputsCount; ch++)
-        {
-            data.samples[ch][i] = sampleValue;
-        }
+        // update phase
+        currentPhase+=currentOmega;
 
-        // update the gain
-        gain *= gainRatio;
+        //audioOutputsCount = 1;
+
+        // copy to all outputs
+        for(uint ch=0;ch<audioOutputsCount;ch++)
+        {
+           
+                data.samples[ch][i]=sampleValue;
+            
+            
+        
+        }
     }
 
-    // to avoid overflow, reduce phase for all active voices
-    for (uint i = 0; i < activeVoicesCount; i++)
-    {
-        voices[i].ReducePhase();
-    }
+    // to avoid overflow
+    while(currentPhase>period)
+        currentPhase-=period;
 }
 
 /*
