@@ -1,0 +1,1 @@
+<SKIN width="100%" height="100%"><IMAGE_GROUP_BOX image="Modern-Theme/decorations/turquoise/bg.png" stretch="false" width="100%" height="100%" ignore_mask_files="true"/></SKIN>

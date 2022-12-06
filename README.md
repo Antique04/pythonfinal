@@ -9,3 +9,6 @@ Issues:
 
 We wanted to include more paramters but the bare bones sound ended up needing to become the focus. The platform lacks a lot of documentation and available debugging, but using our knowledge we were able to at least produce some sound. 
 Future development would entail fixing the distortion bug and the errors in the release algorithm. 
+
+
+To use for yourself load the appropriate VST files in \pythonfinal\Taco Bell\VST\ into your DAW of choice 

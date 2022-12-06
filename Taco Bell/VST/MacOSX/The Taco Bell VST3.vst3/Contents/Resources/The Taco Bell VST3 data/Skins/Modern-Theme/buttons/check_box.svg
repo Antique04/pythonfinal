@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="26" viewBox="0 0 13 26">
+  <rect id="BOX" class="cls-1" fill="#d3d3d3" opacity="0.3" x="1" y="1" width="11" height="11" rx="3" ry="3"/>
+  <rect id="BOX-2" data-name="BOX" class="cls-2" fill="#d3d3d3" opacity="0.86" x="1" y="14" width="11" height="11" rx="3" ry="3"/>
+  <path id="CHECK" fill="#1f2326" fill-rule="evenodd" d="M2,18.667l1.811-1.3a12.7,12.7,0,0,1,1.027,1.432,13.761,13.761,0,0,1,.841,1.688A9.917,9.917,0,0,1,7.547,18.1,12.8,12.8,0,0,1,11,16a22.622,22.622,0,0,0-2.491,3.064,26.242,26.242,0,0,0-2.038,4.879L4.83,24a17.639,17.639,0,0,0-1.075-2.837A18.545,18.545,0,0,0,2,18.667Z"/>
+</svg>

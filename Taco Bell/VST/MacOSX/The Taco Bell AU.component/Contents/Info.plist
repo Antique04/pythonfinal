@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AudioComponents</key>
+	<array>
+		<dict>
+			<key>description</key>
+			<string>Audio Unit</string>
+			<key>factoryFunction</key>
+			<string>AudioUnitPlugFactoryEntry</string>
+			<key>manufacturer</key>
+			<string>ab12</string>
+			<key>name</key>
+			<string>AnthNIsaac: The Taco Bell</string>
+			<key>subtype</key>
+			<string>taco</string>
+			<key>type</key>
+			<string>aumu</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+<string>English</string>
+<key>CFBundleExecutable</key>
+<string>The Taco Bell AU</string>
+<key>CFBundleGetInfoString</key>
+<string></string>
+<key>CFBundleIdentifier</key>
+<string>com.anthnisaac.thetacobellau</string>
+<key>CFBundleInfoDictionaryVersion</key>
+<string>6.0</string>
+<key>CFBundlePackageType</key>
+<string>BNDL</string>
+<key>CFBundleSignature</key>
+<string>????</string>
+<key>CFBundleVersion</key>
+<string></string>
+</dict>
+</plist>

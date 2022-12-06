@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN author="Blue Cat Audio" name="Default" font_size_mode="character">
+  <!-- Theme -->
+  <VARIABLE id="THEME_NAME" value="Modern"/>
+  <INCLUDE_ONCE file="$THEME_NAME$-Theme/theme.inc"/>
+  
+  <!-- Includes -->
+  <INCLUDE_ONCE file="language_extensions/language_extensions.inc"/>
+  <INCLUDE_ONCE file="$THEME_NAME$-Theme/theme.inc"/>
+  <INCLUDE_ONCE file="Controls/Knobs/knobs.inc"/>
+  <INCLUDE_ONCE file="Controls/Groups/groups.inc"/>
+  <INCLUDE_ONCE file="Controls/Meters/meters.inc"/>
+  <INCLUDE_ONCE file="Controls/Other/other.inc"/>
+  <INCLUDE_ONCE file="mapping.inc"/>
+  <INCLUDE_ONCE file="constants.inc"/>
+
+  <DEFINE>
+    <PNS_DSP_PARAM_SETTINGS_BUTTON base_type="THEME_DSP_PARAM_SETTINGS_BUTTON"/>
+    
+    <CUS_TB_LAYOUT_SLOTS_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/slots_button.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_LAYOUT_CONTROLS_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/controls.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_BG_STYLE_SELECT_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/bg_style.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_BG_COLOR_SELECT_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/bg_color.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_CONTROLS_STYLE_SELECT_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/show_controls_button.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_METERS_STYLE_SELECT_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/vu_style.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_GROUP_STYLE_SELECT_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/group_style.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_TEXT_SIZE_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/text_size.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+    <CUS_TB_TEXT_COLOR_BUTTON base_type="IMAGE_PARAM_MENU_BUTTON" image="$THEME_NAME$-Ext/toolbar/text_color.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand"/>
+
+    <CUS_TB_LAYOUT_BUTTON base_type="IMAGE_PARAM_BUTTON" image="$THEME_NAME$-Ext/toolbar/layout_button.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand" image_orientation="vertical" images_count="2"/>
+    <CUS_TB_HANDLES_BUTTON base_type="IMAGE_PARAM_BUTTON" image="$THEME_NAME$-Ext/toolbar/display_handles.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand" image_orientation="vertical" images_count="2"/>
+    <CUS_TB_LOGO_BUTTON base_type="IMAGE_PARAM_BUTTON" image="$THEME_NAME$-Ext/toolbar/display_logo.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand" image_orientation="vertical" images_count="2"/>
+    <CUS_TB_STATUSBAR_BUTTON base_type="IMAGE_PARAM_BUTTON" image="$THEME_NAME$-Ext/toolbar/display_statusbar.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand" image_orientation="vertical" images_count="2"/>
+    <CUS_TB_SCREWS_BUTTON base_type="IMAGE_PARAM_BUTTON" image="$THEME_NAME$-Ext/toolbar/display_screws.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand" image_orientation="vertical" images_count="2"/>
+    <CUS_TB_SCRIPT_INFO_BUTTON base_type="IMAGE_PARAM_BUTTON" image="$THEME_NAME$-Ext/toolbar/display_script_info.png" image_scaling=".5" opaque_mouse_mask="true" cursor="system::hand" image_orientation="vertical" images_count="2"/>
+
+    <CUS_SMALL_LOCK_BUTTON base_type="IMAGE_PARAM_BUTTON" image="$THEME_NAME$-Ext/lock_button.png" opaque_mouse_mask="true" cursor="system::hand" ignore_mask_file="true" image_scaling=".5"/>
+  </DEFINE>
+  <VARIABLE id="minimum_width" value="440"/>
+  <VARIABLE id="minimum_height" value="120"/>
+  <VARIABLE id="spacing" value="4"/>
+  <VARIABLE id="RULER_SUBDIV_COLOR" value="#333333"/>
+  <VARIABLE id="RULER_COLOR" value="#777777"/>
+
+  <!-- Script full description, with name & author -->
+  <STRING id="script_full_description_string" exposed="true"/>
+  <ACTION_TRIGGER event_id="window.loaded.value_changed;$script_description_string$.value_changed;$script_author_string$.value_changed;$script_name_string$.value_changed"
+                  script="string name=$script_name_string$;
+                  string author=$script_author_string$;
+                  string desc=$script_description_string$;
+                  string outString=name;
+                  if(outString.length!=0 &amp;&amp; author.length!=0)
+                    outString+=&quot;, &quot;;
+                  if(author.length!=0)
+                  {
+                    outString+=&quot;by &quot;;
+                    outString+=author;
+                  }
+                  if(outString.length!=0 &amp;&amp; desc.length!=0)
+                  {
+                    outString+=&quot;\n&quot;;
+                  }
+                  outString+=desc;
+                  script_full_description_string=outString;"
+                  requires="$script_name_string$;$script_author_string$;$script_description_string$"/>
+  
+  <!-- Dynamic Global GUI Options -->
+  <TPL_SHOW_HIDE_ANIMATOR id="display_script_title" object_id="script_title" animated_param="v_offset" show_value="0" hide_value="-150" default="$display_script_title_default$" duration_ms="300" lockable="$is_editable$" persistent="$is_editable$" locked="$is_not_editable$" exposed="$is_editable$"/>
+  <TPL_SHOW_HIDE_ANIMATOR id="display_status_bar" object_id="theme.decorations.status_bar" animated_param="v_offset" show_value="0" hide_value="150" default="$display_status_bar_default$" duration_ms="300" lockable="$is_editable$" persistent="$is_editable$" locked="$is_not_editable$" exposed="$is_editable$"/>
+  <TPL_SHOW_HIDE_ANIMATOR id="display_handles" object_id="theme.decorations.handles" animated_param="v_offset" show_value="0" hide_value="300" default="$display_handles_default$" duration_ms="300" lockable="$is_editable$" persistent="$is_editable$" locked="$is_not_editable$" exposed="$is_editable$"/>
+  <TPL_SHOW_HIDE_ANIMATOR id="display_screws" object_id="theme.decorations.screws" animated_param="v_offset" show_value="0" hide_value="300" default="$display_screws_default$" duration_ms="300" lockable="$is_editable$" persistent="$is_editable$" locked="$is_not_editable$" exposed="$is_editable$"/>
+  <TPL_SHOW_HIDE_ANIMATOR id="display_logo" object_id="toolbar.logo" animated_param="h_offset" show_value="0" hide_value="120" default="$display_logo_default$" duration_ms="300" lockable="$is_editable$" persistent="$is_editable$" locked="$is_not_editable$" exposed="$is_editable$"/>
+  <TPL_SHOW_HIDE_ANIMATOR id="display_presets_browser" object_id="presets_browser" animated_param="h_offset" show_value="0" hide_value="-300" default="0" duration_ms="400" persistent="true" persistence_context="-Preset"/>
+  
+  <PARAM id="gui_gen.background_style" type="enumeration" enum_values="Rack;Flat;None" exposed="$is_editable$" persistent="$is_editable$" locked="false" default="$background_style_default$"/>
+  <PARAM_LINK from="gui_gen.background_style" to="theme.decorations.inner_cell.h_margin" formula="if(x==2,0,20)"/>
+  <PARAM_LINK from="gui_gen.background_style" to="theme.decorations.inner_cell.v_margin" formula="if(x==2,0,8)"/>
+
+  <IF_NOT_EDITABLE>
+    <VARIABLE id="plugin_title_image" value=""/>
+    <VARIABLE id="plugin_short_title_image" value=""/>
+  </IF_NOT_EDITABLE>
+
+  <IF_EDITABLE>
+    <VARIABLE id="plugin_title_image" value="plugnscript.svg"/>
+    <VARIABLE id="plugin_short_title_image" value="pns.svg"/>
+
+    <!-- Static Global GUI Options -->
+    <PARAM id="gui_gen.background_color" type="enumeration" enum_values="Blue;Dark Grey;Dark Blue;Green;Grey;Khaki;Old Blue;Orange;Pink;Purple;Red;Turquoise" exposed="true" persistent="true" locked="false"/>
+    <GROUP id="gui_gen.background_settings" object_ids="gui_gen.background_color;gui_gen.background_style"/>
+    <PARAM id="gui_options_lock" type="enumeration" default="0" persistent="true" locked="always" enum_values="Off;On"/>
+    <PARAM_MULTI_LINK from="gui_options_lock" to="display_script_title.meta.locked;display_status_bar.meta.locked;display_handles.meta.locked;display_screws.meta.locked;display_logo.meta.locked;$show_levels$.meta.locked;gui_gen.background_color.meta.locked;gui_gen.background_style.meta.locked"/>
+
+    <!-- Static GUI Layout Generator Settings -->
+    <PARAM id="gui_gen.enable_custom_gui" type="boolean" default="1" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.layout_type" default="1" type="enumeration" enum_values="column;row" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.controls_display_count" default="4" type="integer" min="1" max="12" value_format=".0" unit="Controls" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.groups_display_count" default="12" type="enumeration" min="0" max="12" enum_values="No Group;Group By 1;Group By 2;Group By 3;Group By 4;Group By 5;Group By 6;Group By 7;Group By 8;Group By 9;Group By 10;Group By 11;Group By 12" value_format=".0" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.controls_style" type="enumeration" min="0" enum_values="Modern Silver-Blue;Modern Silver-Pink;Modern Black-Blue;Modern Black-Pink;Vintage;Chicken Black;Chicken White;Chicken Cream;Stove White;Stove Black;Stove Black-Orange;Stove Orange;Skirted Black;Silver Top;Gold Top;Flat;Flat Blue;Flat Orange;Flat Yellow;Flat Green;Flat Red" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.meters_style" type="enumeration" min="0" enum_values="Large Red Led;Large Blue Led;Large Green Led;Large Orange Led;Small Led;Analog Vu;Analog Vu w/ Frame" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.grouping_style" type="enumeration" min="0" enum_values="Dashed;Plain;Filled" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.text_color" type="enumeration" min="0" enum_values="White;Grey;Black;Blue;Orange;Yellow;Green;Red" exposed="true" persistent="true" locked="false"/>
+    <PARAM id="gui_gen.text_size" type="enumeration" min="-2" enum_values="Smaller;Small;Normal;Large;Larger;Very Large" exposed="true" persistent="true" locked="false"/>
+    <GROUP id="gui_gen.controls_settings" object_ids="gui_gen.enable_custom_gui;gui_gen.layout_type;gui_gen.controls_display_count;gui_gen.groups_display_count;gui_gen.controls_style;gui_gen.meters_style;gui_gen.grouping_style;gui_gen.text_color;gui_gen.text_size"/>
+
+    <PARAM id="gui_controls_lock" type="enumeration" default="0" persistent="true" locked="always" enum_values="Off;On"/>
+    <PARAM_MULTI_LINK from="gui_controls_lock" to="gui_gen.enable_custom_gui.meta.locked;gui_gen.layout_type.meta.locked;gui_gen.controls_display_count.meta.locked;gui_gen.groups_display_count.meta.locked;gui_gen.controls_style.meta.locked;gui_gen.meters_style.meta.locked;gui_gen.grouping_style.meta.locked;gui_gen.text_color.meta.locked;gui_gen.text_size.meta.locked"/>
+
+    <!-- grid size -->
+    <FORMULA_PARAM id="y_controls_display_count" formula="ceil(($script_input_params_count$+$script_output_params_count$)/gui_gen.controls_display_count)" exposed="true"/>
+    <FORMULA_PARAM id="x_controls_display_count" formula="min(gui_gen.controls_display_count,$script_input_params_count$+$script_output_params_count$)" exposed="true"/>
+    <!-- groups -->
+    <FORMULA_PARAM id="x_groups_count" formula="(gui_gen.groups_display_count!=0)*max(1,min(floor(x_controls_display_count/gui_gen.groups_display_count),gui_gen.controls_display_count))" exposed="true"/>
+    <FORMULA_PARAM id="x_last_group_size" formula="(gui_gen.groups_display_count!=0)*max(0,x_controls_display_count-x_groups_count*gui_gen.groups_display_count)" exposed="true"/>
+    <FORMULA_PARAM id="y_group_size" formula="max(1,floor((gui_gen.groups_display_count-gui_gen.groups_display_count%x_controls_display_count)/x_controls_display_count))" exposed="true"/>
+    <FORMULA_PARAM id="y_groups_count" formula="(gui_gen.groups_display_count!=0)*min(floor(y_controls_display_count/y_group_size),y_controls_display_count)" exposed="true"/>
+    <FORMULA_PARAM id="y_last_group_size" formula="max(0,y_controls_display_count-y_groups_count*y_group_size)" exposed="true"/>
+
+    <!-- Script Controls & meters (Parameters) -->
+    <SCRIPT src="controls_skin_gen.cxx" preprocess="true" requires="$show_levels$;controls_widget.innerKUIML;$script_input_params_count$;$script_output_params_count$;$script_gui_path$.length;$script_gui_path$;$script_file_path$"/>
+    
+    <!-- Async callback, so that GUI generation happens only once per actual change-->
+    <ACTION_TRIGGER event_ids="$reload_script$.value_changed" condition_formula="$script_gui_path$.length!=0" script="refresh_needed=1;" async="false"/>
+    <ACTION_TRIGGER event_ids="gui_gen.controls_settings.value_changed;$script_gui_path$.value_changed;$script_input_params_count$.value_changed;$script_output_params_count$.value_changed" script="refresh_needed=1;" async="false"/>
+    <ACTION_TRIGGER event_ids="x_controls_display_count.value_changed;y_controls_display_count.value_changed;x_groups_count.value_changed;y_groups_count.value_changed;x_last_group_size.value_changed;y_group_size.value_changed;y_last_group_size.value_changed" script="refresh_needed=1;" async="false"/>
+    <PARAM id="refresh_needed" type="boolean" default="1" exposed="true"/>
+    <ACTION_TRIGGER event_ids="refresh_needed.value_changed" condition_formula="refresh_needed==true" script="refresh_needed=0;GenerateControls();" async="true"/>
+    <ACTION_TRIGGER event_ids="skin_loading.value_changed" condition_formula="(skin_loading)&amp;&amp;(refresh_needed==true)" script="refresh_needed=0;GenerateControls();" />
+    
+    <!-- Background widget selection-->
+    <ACTION_TRIGGER event_ids="gui_gen.background_settings.value_changed" script="GenerateBackground();" requires="theme.decorations.background.innerKUIML"/>
+    <ACTION_TRIGGER event_ids="skin_loading.value_changed" condition_formula="skin_loading" script="GenerateBackground();" requires="theme.decorations.background.innerKUIML"/>
+    
+    <!-- Parameter that triggers skins generation upon load: model alive and window not loaded yet-->
+    <FORMULA_PARAM id="skin_loading" formula="alive&amp;&amp;(window.loaded==false)" type="boolean" default="false"/>
+</IF_EDITABLE>
+
+  <!-- Custom widgets definitions -->
+  <!-- Level meter -->
+  <TEMPLATE id="TPL_CHANNEL_METER" param_id="#UNDEFINED#" hold_param_id="#UNDEFINED#" ruler_after="0" direction="input">
+    <!-- determines the delimiter between main bus meter and others: negative if nothing to show-->
+    <FORMULA_PARAM id="main_bus_$direction$_delimiter_index" formula="main_bus_channels_count*(1-2*(main_bus_channels_count&gt;=dsp.connected_$direction$s_count))"/>
+    <THEME_METER_BOX layout_type="row" spacing="1" flex="1" h_margin="4" v_margin="4">
+      <ROW  margin="0" height="100%" spacing="2">
+        <REPEAT count="$$direction$_channels_count$" index_name="channel_index" start="1">
+          <LAYER_STACK height="100%" id="$param_id$_meter.channel$channel_index$" width="3">
+            <THEME_VMETER param_id="$$param_id$$channel_index$$" height="100%" width="100%"/>
+            <THEME_VMETER_HOLD param_id="$$hold_param_id$$channel_index$$" height="100%" width="100%"/>
+          </LAYER_STACK>
+          <CELL width="1" display="false" id="$direction$_meter_spacer$channel_index$"/>
+          <PARAM_LINK from="main_bus_$direction$_delimiter_index" to="$direction$_meter_spacer$channel_index$.display" formula="(x==$channel_index$)"/>
+          <PARAM_LINK from="dsp.connected_$direction$s_count" to="$param_id$_meter.channel$channel_index$.display" formula="$channel_index$&lt;=x"/>
+        </REPEAT>
+      </ROW>
+    </THEME_METER_BOX>
+  </TEMPLATE>
+
+  <!-- Messages and status -->
+  <TEMPLATE id="TPL_SCRIPT_STATUS">
+    <ROW width="100%" h_margin="4" text_color="#cccccc" height="100%">
+      <LAYER_STACK flex="1">
+        <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action="OpenLogFile" cursor="system::hand" id="open_log_button">
+          <TOOLTIP text="Click to open full log"/>
+        </INVISIBLE_ACTION_BUTTON>
+        <ROW width="100%" spacing="5" id="open_log_button_content">
+          <IMAGE_PARAM_METER param_id="$script_status$" image="status16.png" image_scaling=".5" images_count="4"/>
+          <TEXT string_id="$script_status_string$" flex="1" text_h_align="left" fit_text="abbreviate"/>
+        </ROW>
+        <PARAM_LINK from="open_log_button.pushed" to="open_log_button_content.v_offset"/>
+        <PARAM_LINK from="open_log_button.pushed" to="open_log_button_content.h_offset"/>
+      </LAYER_STACK>
+      <FORMULA_PARAM id="theme.cpu_load" formula="100*dsp.load" min="0" max="100" value_format=".1" unit="%" significant_digits="2" drop_trailing_zeros="true"/>
+      <FORMULA_PARAM id="theme.max_cpu_load" formula="100*dsp.max_load" min="0" max="100" value_format=".1" unit="%" significant_digits="2" drop_trailing_zeros="true"/>
+      <ACTION_TRIGGER event_id="theme.cpu_load.text_value.value_changed;theme.max_cpu_load.text_value.value_changed"
+                  script="theme.cpu_load_text=&quot;Real Time Workload: &quot;+theme.cpu_load.text_value+&quot;% / Peak: &quot;+theme.max_cpu_load.text_value+&quot;%&quot;"
+                  requires="theme.cpu_load.text_value.value_changed;theme.max_cpu_load.text_value.value_changed;theme.cpu_load_text"/>
+      <STRING id="theme.cpu_load_text" default="Real Time Workload: N/A"/>
+      <CANVAS id="theme.cpu_load_meter" width="40" height="10"
+                requires="dsp.load;dsp.max_load;theme.cpu_load_meter.width;theme.cpu_load_meter.height"
+                render_script="
+                            /* Get values */
+                            double value=dsp.load;
+                            double max_value=dsp.max_load;
+                            if(value>1.0)
+                              value=1.0;
+                            if(max_value>1.0)
+                              max_value=1.0;
+                                
+                            /* compute color */
+                            double r=0.32;
+                            double g=0.56;
+                            double b=0.68;
+                            if(max_value>0.98)
+                            {
+                              r=0.80;
+                              g=0.28;
+                              b=0.28;
+                            }
+                            else if(max_value>0.80)
+                            {
+                              r=0.78;
+                              g=0.51;
+                              b=0.22;
+                            }
+                            /* draw meter */
+                            Kt::Graphics::Context@ ctx = Kt::Graphics::GetCurrentContext();
+                            if (@ctx!= null)
+                            {
+                              double width=this.width-1.0;
+                              double height=this.height-1.0;                           
+                              
+                              /* background */
+                              ctx.path.Clear();
+                              ctx.path.Rectangle(0,0,width,height);
+                              ctx.source.SetRGB(0,0,0);
+                              ctx.FillPath();  
+                              
+                              height-=2;
+                              width-=2;
+                              ctx.path.Clear();
+                              ctx.path.Rectangle(1.0,1.0,width,height);
+                              ctx.source.SetRGB(r*0.15,g*0.15,b*0.15);
+                              ctx.FillPath();    
+
+                              /* Draw average value*/
+                              ctx.source.SetRGB(r,g,b);
+                              ctx.path.Clear();
+                              ctx.path.Rectangle(1.0,1.0,width*value,height);
+                              ctx.FillPath();
+                              /* Draw max value*/
+                              ctx.path.Clear();
+                              if(max_value>0)
+                              {
+                                ctx.path.Rectangle(1.0+(width-2.0)*max_value,1.0,2.0,height);
+                                ctx.FillPath();
+                              }
+                             }
+                           " mouse_sensitive="true">
+        <TOOLTIP string_id="theme.cpu_load_text"/>
+      </CANVAS>
+      <ACTION_TRIGGER event_id="theme.cpu_load.value_changed;theme.max_cpu_load.value_changed" action_id="theme.cpu_load_meter.Invalidate"/>
+      <CELL width="4"/>  
+    </ROW>
+  </TEMPLATE>
+
+  <!-- Animations -->
+  <IF_EDITABLE>
+    <TPL_SHOW_HIDE_ANIMATOR id="show_preferences_pane" object_id="preferences_pane" animated_param="v_offset" show_value="0" hide_value="-500" default="-500"/>
+    <TPL_SHOW_HIDE_ANIMATOR id="show_edit_pane" object_id="edit_pane" animated_param="h_offset" show_value="0" hide_value="200" default="0" lockable="true" locked="always" persistent="true"/>
+  </IF_EDITABLE>
+  <TPL_SHOW_HIDE_ANIMATOR id="display_out_levels" object_id="out_levels" animated_param="v_offset" show_value="0" hide_value="500" default="$display_levels_default$" duration_ms="300"/>
+  <TPL_SHOW_HIDE_ANIMATOR id="display_in_levels" object_id="in_levels" animated_param="v_offset" show_value="0" hide_value="500" default="$display_levels_default$" duration_ms="300"/>
+  <REPEAT count="($HAS_EXTRA_INPUT_PARAMS$)&amp;&amp;($display_levels_default$)">
+    <PARAM_MULTI_LINK from="$show_levels$" to="display_in_levels;display_out_levels"/>
+  </REPEAT>
+
+  <!-- Skin Layout starts here with toolbar-->
+  <ROW>
+    <LAYER_STACK>
+      <DECORATIONS_STYLE_CELL layout_type="row">
+        <CELL width="2" id="presets_browser_left_margin"/>
+        <!-- Lazy-loading built-in presets manager -->
+        <KUIML_WIDGET src="built_in_browser.sub" root_path="PresetsBrowser" height="100%" id="presets_browser" display="false" min_height="256"
+                      persistent="true" persistence_context="-Preset" locked="false" load_enabled="false" v_margin="2"
+                       import_templates="false" import_defines="false"/>
+        <PARAM_MULTI_LINK from="presets_browser.display" to="presets_browser.load_enabled;presets_browser_left_margin.display"/>
+      <COLUMN>
+        <!-- toolbar layout -->
+        <VARIABLE id="computed_empty_buttons" value="2"/>
+          <REPEAT count="$is_editable$||(($HAS_EXTRA_INPUT_PARAMS$)&amp;&amp;($display_levels_default$))">
+            <VARIABLE id="computed_empty_buttons" formula="$computed_empty_buttons$-1" override="true"/>
+          </REPEAT>
+        <TPL_TOOLBAR title_image="$plugin_title_image$" title_image_small="$plugin_short_title_image$" preset_box_width="200" buttons_per_row="5" empty_buttons_count="$computed_empty_buttons$" spacing="4">
+          <THEME_SHOW_BROWSER_BUTTON param_id="display_presets_browser" image_scaling=".5" cursor="system::hand">
+            <TOOLTIP text="Show/Hide Presets Browser"/>
+          </THEME_SHOW_BROWSER_BUTTON>
+          <IF_NOT_EDITABLE>
+          <REPEAT count="($HAS_EXTRA_INPUT_PARAMS$)&amp;&amp;($display_levels_default$)">
+            <THEME_SHOW_METERS_BUTTON param_id="$show_levels$">
+              <TOOLTIP text="Show Meters"/>
+            </THEME_SHOW_METERS_BUTTON>
+          </REPEAT>
+           </IF_NOT_EDITABLE>
+          <IF_EDITABLE>
+            <IMAGE_PARAM_BUTTON image="$THEME_NAME$-Ext/toolbar/edit_button.png" image_scaling=".5" opaque_mouse_mask="true" param_id="show_edit_pane" cursor="system::hand">
+              <TOOLTIP text="Edit Mode"/>
+            </IMAGE_PARAM_BUTTON>
+          </IF_EDITABLE>
+        </TPL_TOOLBAR>
+        <THEME_DECORATIONS link_text="" status_bar_widget="TPL_SCRIPT_STATUS" text_color="#eaeaea" >
+          <ROW spacing="$spacing$"  min_width="$minimum_width$" h_margin="2">
+            <!-- In METERS -->
+            <COLUMN id="in_levels" height="100%">
+              <TPL_CHANNEL_METER param_id="input_level" hold_param_id="input_hold_level"/>
+            </COLUMN>
+            <COLUMN spacing="$spacing$" flex="1">
+              <!--Script Title / Info -->
+              <LAYER_STACK id="script_title" font_size="17" font_weight="bold" text_color="#9f9f9f">
+                <CELL h_margin="28">
+                  <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/edit/icons_bg.png" repeat="true" layout_type="layer_stack" v_margin="5" h_margin="12" ignore_mask_files="true">
+                      <TEXT string_id="$script_name_string$" id="script_title.text" width="0">
+                        <TOOLTIP string_id="script_full_description_string"/>
+                      </TEXT>
+                    <PARAM_LINK from="$script_name_string$.length" to="script_title.text.width" formula="12*x"/>
+                  </IMAGE_GROUP_BOX>
+                </CELL>
+                <IMAGE_ACTION_BUTTON image="$THEME_NAME$-Ext/help.png" image_scaling=".8" opaque_mouse_mask="true" action_id="OpenScriptDoc" display="false" id="script_title.open_script_doc_button" h_align="right" cursor="system::hand">
+                  <PARAM_LINK from="$script_doc_path$.length" to="script_title.open_script_doc_button.display" formula="x!=0"/>
+                  <TOOLTIP text="Script Manual"/>
+                </IMAGE_ACTION_BUTTON>
+              </LAYER_STACK>
+
+              <!-- custom controls content goes here -->
+              <COLUMN min_height="$minimum_height$">
+                <KUIML_WIDGET id="controls_widget" src="custom_controls.kuiml.inc"/>
+              </COLUMN>
+            </COLUMN>
+            <COLUMN height="100%" id="out_levels">
+              <TPL_CHANNEL_METER param_id="output_level" hold_param_id="output_hold_level" ruler_after="1" direction="output"/>
+            </COLUMN>
+          </ROW>
+        </THEME_DECORATIONS>
+      </COLUMN>
+      </DECORATIONS_STYLE_CELL>
+      <IF_NOT_EDITABLE>
+        <!-- DEMO WARNING -->
+        <REPEAT count="$SCRIPT_DEMO_MODE$">
+          <PARAM id="demo_shown" persistent="true" locked="always" type="boolean" default="0" exposed="true"/>
+          <TPL_SHOW_HIDE_ANIMATOR id="show_demo_pane" exposed="true" object_id="demo_pane" animated_param="opacity" show_value="1" hide_value="0" default="0" duration_ms="2000"/>
+          <ACTION_TRIGGER event_id="window.loaded.value_changed" script="if(demo_shown==0) {show_demo_pane=1;demo_shown=1;}"/>
+          <TIMER refresh_time_ms="3000" id="demo_pane.timer"/>
+          <ACTION_TRIGGER event_id="demo_pane.timer.elapsed" script="demo_pane.timer.enabled=false;show_demo_pane=0;" requires="demo_pane.timer.enabled"/>
+          <WIDGET layout_type="column" font_size="+2" mouse_sensitive="true" font_face="Arial" text_color="#eeeeee" id="demo_pane" margin="20">
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/window_title.png" width="100%" stretch="true"  h_margin="20" v_margin="5">
+              <TEXT value="DEMO VERSION" font_size="+1" font_weight="bold"/>
+            </IMAGE_GROUP_BOX>
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/window_back.png" ignore_mask_files="true" h_margin="40" v_margin="20" spacing="6">
+              <TEXT value="This is a limited demo version." font_weight="bold"/>
+              <TEXT value="Saving is disabled, and the plug-in"/>
+              <TEXT value="will produce silence after 10 minutes."/>
+              <CELL height="10"/>
+            </IMAGE_GROUP_BOX>
+          </WIDGET>
+        </REPEAT>
+      </IF_NOT_EDITABLE>
+      
+      <IF_EDITABLE>
+        <!-- PREFERENCES PANE -->
+        <WIDGET layout_type="column" font_size="+2" mouse_sensitive="true" font_face="Arial" text_color="#eeeeee" id="preferences_pane">
+          <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/window_title.png" width="100%" stretch="true"  h_margin="20" v_margin="5">
+            <TEXT value="PREFERENCES" font_size="+1" font_weight="bold"/>
+          </IMAGE_GROUP_BOX>
+          <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/window_back.png" ignore_mask_files="true" h_margin="20" v_margin="5" spacing="3">
+            <TEXT value="Edit script files with:" h_align="left" font_weight="bold"/>
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/button.png" stretch="true" h_align="left" h_margin="7" v_margin="3" layout_type="layer_stack">
+              <ROW>
+                <TEXT string_id="global.edit_script_application" width="300" text_h_align="left">
+                  <INVISIBLE_ACTION_BUTTON action_id="choose_edit_script_application" width="100%" height="100%" cursor="system::hand"/>
+                </TEXT>
+                <LAYER_STACK>
+                  <THEME_BOX v_margin="2">
+                    <TEXT value="..."/>
+                  </THEME_BOX>
+                  <ACTION id="choose_edit_script_application" type="DisplayFileOpenDialog" file_path_string_id="global.edit_script_application"  open_bundles="false"/>
+                  <INVISIBLE_ACTION_BUTTON action_id="choose_edit_script_application" flex="1" cursor="system::hand">
+                    <TOOLTIP text="Click to select an application"/>
+                  </INVISIBLE_ACTION_BUTTON>
+                </LAYER_STACK>
+              </ROW>
+            </IMAGE_GROUP_BOX>
+              <TEXT value="Edit custom GUI files with:" h_align="left" font_weight="bold"/>
+              <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/button.png" stretch="true" h_align="left" h_margin="7" v_margin="3" layout_type="layer_stack">
+                <ROW>
+                  <TEXT string_id="global.edit_kuiml_application" width="300" text_h_align="left">
+                    <INVISIBLE_ACTION_BUTTON action_id="choose_edit_kuiml_application" width="100%" height="100%" cursor="system::hand"/>
+                  </TEXT>
+                  <LAYER_STACK>
+                    <THEME_BOX v_margin="2">
+                      <TEXT value="..."/>
+                    </THEME_BOX>
+                    <ACTION id="choose_edit_kuiml_application" type="DisplayFileOpenDialog" file_path_string_id="global.edit_kuiml_application"  open_bundles="false"/>
+                    <INVISIBLE_ACTION_BUTTON action_id="choose_edit_kuiml_application" flex="1" cursor="system::hand">
+                      <TOOLTIP text="Click to select an application"/>
+                    </INVISIBLE_ACTION_BUTTON>
+                  </LAYER_STACK>
+                </ROW>
+              </IMAGE_GROUP_BOX>
+            <TEXT value="Open log files with:" h_align="left" font_weight="bold"/>
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/button.png" stretch="true" h_align="left" h_margin="7" v_margin="3" layout_type="layer_stack">
+              <ROW>
+                <TEXT string_id="global.open_log_application" width="300" text_h_align="left">
+                  <INVISIBLE_ACTION_BUTTON action_id="choose_open_log_application" width="100%" height="100%" cursor="system::hand"/>
+                </TEXT>
+                <LAYER_STACK>
+                  <THEME_BOX v_margin="2">
+                    <TEXT value="..."/>
+                  </THEME_BOX>
+                  <ACTION id="choose_open_log_application" type="DisplayFileOpenDialog" file_path_string_id="global.open_log_application" open_bundles="false"/>
+                  <INVISIBLE_ACTION_BUTTON action_id="choose_open_log_application" flex="1" cursor="system::hand">
+                    <TOOLTIP text="Click to select an application"/>
+                  </INVISIBLE_ACTION_BUTTON>
+                </LAYER_STACK>
+              </ROW>
+            </IMAGE_GROUP_BOX>
+            <CELL/>
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/window/button.png" ignore_mask_files="true" h_align="right" layout_type="layer_stack">
+              <CELL h_margin="7" v_margin="3">
+                <TEXT value="Close">
+                  <INVISIBLE_PARAM_BUTTON param_id="show_preferences_pane" width="100%" height="100%" cursor="system::hand"/>
+                </TEXT>
+              </CELL>
+            </IMAGE_GROUP_BOX>
+            <CELL height="8"/>
+          </IMAGE_GROUP_BOX>
+        </WIDGET>
+
+        <!-- EXPORT WINDOW-->
+        <WINDOW id="export_window" visible="false" modal="true" title="Export Plug-In (VST, VST3, AAX &amp; AU)" min_width="500" min_height="100" margin="10" spacing="5" enable_maximize="false" enable_minimize="false">
+          <!-- data model -->
+          <STRING id="export_window.plugin_id" default="0000" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.plugin_guid" default="" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.plugin_name" default="My Plugin" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.plugin_manufacturer" default="Blue Cat Audio" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.plugin_manufacturer_id" default="0000" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.dest_path" default="$PLUGIN_USER_DOCUMENTS_PATH$Export" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.log_path" persistent="true" persistence_context="-Preset"/>
+          <PARAM id="export_window.use_generic_params" type="enumeration" default="0" enum_values="No;Yes" persistent="true" persistence_context="-Preset"/>
+          <PARAM id="export_window.encrypt_dsp_script" type="enumeration" default="0" enum_values="No;Yes" persistent="true" persistence_context="-Preset"/>
+          <PARAM id="export_window.use_generic_skin" type="enumeration" default="1" enum_values="No;Yes" persistent="true" persistence_context="-Preset"/>
+          <PARAM id="export_window.plugin_type" type="enumeration" default="0" enum_values="Audio Effect;Instrument;MIDI Effect" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.selected_io_config" persistent="true" persistence_context="-Preset"/>
+          <STRING id="export_window.selected_io_config_name" default="Please Select..." persistent="true" persistence_context="-Preset"/>
+          <GROUP id="export_config" object_ids="export_window.plugin_id;export_window.plugin_guid;export_window.plugin_name;export_window.plugin_manufacturer;export_window.plugin_manufacturer_id;export_window.dest_path;export_window.use_generic_params;export_window.encrypt_dsp_script;export_window.use_generic_skin;export_window.plugin_type;export_window.selected_io_config;export_window.selected_io_config_name" 
+                                    object_aliases="plugin_id;plugin_guid;plugin_name;plugin_manufacturer;plugin_manufacturer_id;dest_path;use_generic_params;encrypt_dsp_script;use_generic_skin;plugin_plugin_type;io_config;io_config_name"/>
+          
+          <STRING id="export_window.temp_export_path"/>
+          <PARAM id="export_window.result" type="enumeration" default="0" enum_values="Building;Build Failed;Build Succeeded with Warnings;Build Succeeded"/>
+
+          <!-- actions-->
+          <ACTION id="export_window.ExportPlugin" type="ExportPlugNScriptPlugin" name="Build!"
+                  plugin_id_string_id="export_window.plugin_id" plugin_guid_string_id="export_window.plugin_guid" plugin_name_string_id="export_window.plugin_name" plugin_manufacturer_string_id="export_window.plugin_manufacturer"
+                  plugin_manufacturer_id_string_id="export_window.plugin_manufacturer_id"
+                  dsp_file_string_id="$script_file_path$" dest_folder_string_id="export_window.dest_path"
+                  use_generic_params_param_id="export_window.use_generic_params" use_generic_skin_param_id="export_window.use_generic_skin" plugin_type_param_id="export_window.plugin_type"
+                  enable_meters_param_id="$show_levels$" enable_encryption_param_id="export_window.encrypt_dsp_script" result_param_id="export_window.result"
+                  io_config_path_string_id="export_window.selected_io_config" io_config_root_path="$PLUGIN_DATA_PATH$/Resources/Settings/ioconfig"
+                  log_path_string_id="export_window.log_path" temp_path_string_id="export_window.temp_export_path"/>
+          <ACTION id="export_window.OpenLog" type="OpenUrl" name="Details..." url_string_id="export_window.log_path" application_string_id="global.open_log_application"/>
+          <PARAM_LINK from="export_window.log_path.length" to="export_window.OpenLog.enabled" formula="x!=0"/>
+          <ACTION id="export_window.SelectPluginFolder" type="DisplayFolderSelectDialog" name="Browse..." file_path_string_id="export_window.dest_path"/>
+          <ACTION id="export_window.OpenPluginFolder" type="OpenUrl" name="Open..." url_string_id="export_window.dest_path"/>
+          <ACTION id="export_window.SaveAs" type="DisplayObjectSaveDialog" object_id="export_config" name="Save As..." file_types="*.pnscfg" default_path="$PLUGIN_USER_DOCUMENTS_PATH$/Configs" applicative_type="PluginConfig"/>
+          <ACTION id="export_window.Load" type="DisplayObjectLoadDialog" object_id="export_config" name="Load..." file_types="*.pnscfg" default_path="$PLUGIN_USER_DOCUMENTS_PATH$/Configs" applicative_type="PluginConfig"/>
+          <ACTION id="export_window.Close" type="Script" script="export_window.visible=false" requires="export_window.visible" name="Close"/>
+          <ACTION id="export_window.GenerateGUID" type="GeneratePlugNScriptGUID" string_id="export_window.plugin_guid" name="Generate"/>
+          <FILE_SELECT_MENU id="export_window.io_select_menu" directories="$PLUGIN_DATA_PATH$/Resources/Settings/ioconfig" file_types="*.iocfg" name="Select$type_display_name$"
+                            file_path_string_id="export_window.selected_io_config" file_name_string_id="export_window.selected_io_config_name" root_path="$PLUGIN_DATA_PATH$/Resources/Settings/ioconfig"/>
+          
+          <!-- hide status when opening the window and show it when starting export-->
+          <ACTION_TRIGGER event_id="export_window.visible.value_changed" condition_formula="export_window.visible==true" script="status_text.visible=false" requires="status_text.visible"/>
+          <ACTION_TRIGGER event_id="export_window.ExportPlugin.running.value_changed" condition_formula="export_window.ExportPlugin.running==true" script="status_text.visible=true" requires="status_text.visible"/>
+          <!-- copy temp skin files when temp dir is created-->
+          <ACTION_TRIGGER event_id="export_window.temp_export_path.value_changed" condition_formula="export_window.temp_export_path.length>0" script="GenerateExtraDataToTemp(string(export_window.temp_export_path));" requires="export_window.temp_export_path;$script_doc_path$;$script_doc_path$.length"/>
+
+          <!-- Window layout -->
+          <TEXT font_weight="bold" value="Configuration" h_align="left"/>
+          <ROW width="100%" spacing="5">
+            <TEXT value="Destination:"/>
+            <TEXT_EDIT_BOX string_id="export_window.dest_path" flex="1"/>
+            <SYSTEM_ACTION_BUTTON action_id="export_window.SelectPluginFolder"/>
+            <IMAGE image="help_icon.png" image_scaling=".5">
+              <TOOLTIP text="Choose the folder where the plug-in will be exported"/>
+            </IMAGE>
+          </ROW>
+          <!-- Main Options -->
+          <TABLE spacing="5">
+            <TABLE_ROW>
+              <TEXT value="Plug-In Name:" h_align="right"/>
+              <TEXT_EDIT_BOX string_id="export_window.plugin_name"/>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="Name of the plug-in (required)"/>
+              </IMAGE>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <TEXT value="Plug-In ID:" h_align="right"/>
+              <TEXT_EDIT_BOX string_id="export_window.plugin_id"/>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="UNIQUE identifier for the plug-in, composed of 4 digits or letters. ex: 'abcd' 'a0b1' (required)"/>
+              </IMAGE>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <TEXT value="Plug-In GUID:" h_align="right"/>
+              <TEXT_EDIT_BOX string_id="export_window.plugin_guid"/>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="globally unique identifier for the plug-in - 128 bit hexadecimal value (required for VST3)"/>
+              </IMAGE>
+              <SYSTEM_ACTION_BUTTON action_id="export_window.GenerateGUID" width="85"/>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <TEXT value="Manufacturer:" h_align="right"/>
+              <TEXT_EDIT_BOX string_id="export_window.plugin_manufacturer"/>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="Name of the manufacturer of the plug-in (required)"/>
+              </IMAGE>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <TEXT value="Manufacturer ID:" h_align="right"/>
+              <TEXT_EDIT_BOX string_id="export_window.plugin_manufacturer_id"/>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="UNIQUE identifier for the manufacturer, composed of 4 digits or letters. ex: 'abcd' 'a0b1' (required to export Audio Units)"/>
+              </IMAGE>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <TEXT value="Plug-In Type:" h_align="right"/>
+              <SYSTEM_PARAM_DROPDOWN_LIST param_id="export_window.plugin_type" width="100"/>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="Select the appropriate plug-in type."/>
+              </IMAGE>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <TEXT value="Audio I/O:" h_align="right"/>
+              <CANVAS h_margin="2" v_margin="3" id="export_window.selected_io_config_name_canvas" layout_type="layer_stack" width="100" render_script="auto@ ctx = Kt::Graphics::GetCurrentContext();ctx.source.SetRGB(.5,.5,.5);ctx.path.Rectangle(0,0,this.width,this.height);ctx.StrokePath();" requires="export_window.selected_io_config_name_canvas.width;export_window.selected_io_config_name_canvas.height">
+                <TEXT string_id="export_window.selected_io_config_name" width="100%" text_h_align="left" fit_text="abbreviate"/>
+                <INVISIBLE_ACTION_BUTTON action_id="export_window.io_select_menu.Popup" width="100%" height="100%"/>
+              </CANVAS>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="Select the appropriate audio I/O configuration for the exported plug-in."/>
+              </IMAGE>
+            </TABLE_ROW>
+          </TABLE>
+
+          <TABLE spacing="5">
+            <TABLE_ROW>
+              <SYSTEM_PARAM_CHECKBOX param_id="export_window.use_generic_skin"/>
+              <TEXT value="Include GUI" h_align="left">
+                <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="export_window.use_generic_skin"/>
+              </TEXT>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="Uncheck this option for a plug-in with no Graphical User Interface,\nor if you want add your own custom skin(s) to the plug-in after export"/>
+              </IMAGE>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <SYSTEM_PARAM_CHECKBOX param_id="export_window.use_generic_params"/>
+              <TEXT value="Use generic params" h_align="left">
+                <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="export_window.use_generic_params"/>
+              </TEXT>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="Check this option if you want the plug-in to expose generic parameters to the host application, like the Plug'n Script plug-in.&#10;Necessary for scripts which parameters depend on the sample rate or the number of channels."/>
+              </IMAGE>
+            </TABLE_ROW>
+            <TABLE_ROW>
+              <SYSTEM_PARAM_CHECKBOX param_id="export_window.encrypt_dsp_script"/>
+              <TEXT value="Encrypt dsp scripts" h_align="left">
+                <INVISIBLE_PARAM_BUTTON width="100%" height="100%" param_id="export_window.encrypt_dsp_script"/>
+              </TEXT>
+              <IMAGE image="help_icon.png" image_scaling=".5">
+                <TOOLTIP text="Check this option if you want to hide the code of dsp scripts in the exported plug-in."/>
+              </IMAGE>
+            </TABLE_ROW>
+          </TABLE>
+          <CELL height="5"/>
+          <ROW spacing="5">
+            <SYSTEM_ACTION_BUTTON action_id="export_window.Load">
+              <TOOLTIP text="Load configuration from file"/>
+            </SYSTEM_ACTION_BUTTON>
+            <SYSTEM_ACTION_BUTTON action_id="export_window.SaveAs">
+              <TOOLTIP text="Save configuration to file"/>
+            </SYSTEM_ACTION_BUTTON>
+            <SYSTEM_ACTION_BUTTON action_id="export_window.ExportPlugin">
+              <TOOLTIP text="Build the plug-in"/>
+            </SYSTEM_ACTION_BUTTON>
+          </ROW>
+          <CELL height="10"/>
+
+          <TEXT font_weight="bold" value="Build Results" h_align="left"/>
+          <ROW width="100%" spacing="5">
+            <PARAM_TEXT param_id="export_window.result" flex="1" content="{text_value}" width="0" id="status_text" visible="false"/>
+            <SYSTEM_ACTION_BUTTON action_id="export_window.OpenLog">
+              <TOOLTIP text="Open build log"/>
+            </SYSTEM_ACTION_BUTTON>
+            <SYSTEM_ACTION_BUTTON action_id="export_window.OpenPluginFolder">
+              <TOOLTIP text="Open plug-in location"/>
+            </SYSTEM_ACTION_BUTTON>
+            <SYSTEM_ACTION_BUTTON action_id="export_window.Close" default_button="true">
+              <TOOLTIP text="Close this window"/>
+            </SYSTEM_ACTION_BUTTON>
+          </ROW>
+        </WINDOW>
+      </IF_EDITABLE>
+    </LAYER_STACK>
+
+    <IF_EDITABLE>
+      <!--EDITION pane -->
+      <WIDGET layout_type="row" font_size="12" mouse_sensitive="true" font_face="Arial" text_color="#a7a7a7" id="edit_pane" v_align="top" height="100%" min_height="300" width="220">
+        <COLUMN height="100%" flex="1">
+          <CELL height="3"/>
+          <!-- Export Title -->
+          <IMAGE image="$THEME_NAME$-Ext/window/window_title_center.png" width="100%" repeat="true"  h_margin="5" v_margin="5" layout_type="layer_stack">
+            <THEME_SHOW_PREFS_BUTTON param_id="show_preferences_pane" cursor="system::hand" h_align="left">
+              <TOOLTIP text="Open edition preferences"/>
+            </THEME_SHOW_PREFS_BUTTON>
+            <TEXT value="Edition" font_size="+1" font_weight="bold"/>
+            <IMAGE_PARAM_BUTTON image="$THEME_NAME$-Ext/toolbar/close.png" image_scaling=".5" opaque_mouse_mask="true" images_count="1" param_id="show_edit_pane" h_align="right" cursor="system::hand"/>
+          </IMAGE>
+          
+          <IMAGE image="$THEME_NAME$-Ext/edit/edit_bg.png" repeat="true" ignore_mask_files="true" h_margin="10" v_margin="5" spacing="3" flex="1" width="100%">
+            <!-- DSP Script Actions -->
+            <ROW width="100%">
+              <TEXT value="DSP Script" h_align="left" font_weight="bold"/>
+              <CELL flex="1"/>
+              <IMAGE_PARAM_BUTTON image="$THEME_NAME$-Ext/toolbar/reload.png" image_scaling=".5" opaque_mouse_mask="true" param_id="$reload_script$" images_count="1" cursor="system::hand">
+                <TOOLTIP text="Reload Script"/>
+              </IMAGE_PARAM_BUTTON>
+              <IMAGE_ACTION_BUTTON image="$THEME_NAME$-Ext/toolbar/edit_script.png" image_scaling=".5" opaque_mouse_mask="true" action_id="OpenScriptFile" id="edit_script_button" cursor="system::hand">
+                <PARAM_LINK from="$script_file_type$" to="edit_script_button.enabled" formula="x==0"/>
+                <TOOLTIP text="Edit Script"/>
+              </IMAGE_ACTION_BUTTON>
+              <IMAGE_ACTION_BUTTON  image="$THEME_NAME$-Ext/toolbar/folder.png" image_scaling=".5" opaque_mouse_mask="true" action_id="OpenScriptDirectory" cursor="system::hand">
+                <TOOLTIP text="Reveal Script in $FILE_EXPLORER_APP_NAME$"/>
+              </IMAGE_ACTION_BUTTON>
+            </ROW>
+            <!-- DSP Script Selection -->
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/edit/load_button.png" h_margin="7" v_margin="12" layout_type="layer_stack" font_size="-1" width="100%" text_color="#42aff6" ignore_mask_files="true">
+              <TEXT string_id="PlugNScript.script_name" width="100%" fit_text="truncate" font_size="+1"/>
+              <INVISIBLE_ACTION_BUTTON width="100%" height="100%" action_id="PlugNScript.ShowScriptsMenu" cursor="system::hand">
+                <TOOLTIP text="Click to select or load dsp script"/>
+              </INVISIBLE_ACTION_BUTTON>
+            </IMAGE_GROUP_BOX>
+           
+            <CELL height="5"/>
+            
+            <!-- GUI Options -->
+            <ROW width="100%">
+              <TEXT value="GUI Options" font_weight="bold"/>
+              <CELL flex="1"/>
+              <CUS_SMALL_LOCK_BUTTON param_id="gui_options_lock">
+                <PARAM_TOOLTIP param_id="gui_options_lock" content="Lock GUI options (prevent changes when loading presets) - {text_value}" />
+              </CUS_SMALL_LOCK_BUTTON>
+            </ROW>
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/edit/icons_bg.png" layout_type="row" width="100%" margin="7" ignore_mask_files="true">
+              <CUS_TB_BG_STYLE_SELECT_BUTTON param_id="gui_gen.background_style">
+                <PARAM_TOOLTIP content="Select background style ({text_value})" param_id="gui_gen.background_style"/>
+              </CUS_TB_BG_STYLE_SELECT_BUTTON>
+              <CUS_TB_BG_COLOR_SELECT_BUTTON param_id="gui_gen.background_color">
+                <PARAM_TOOLTIP content="Select background color ({text_value})" param_id="gui_gen.background_color"/>
+              </CUS_TB_BG_COLOR_SELECT_BUTTON>
+              <CUS_TB_SCRIPT_INFO_BUTTON param_id="display_script_title">
+                <TOOLTIP text="Display script info"/>
+              </CUS_TB_SCRIPT_INFO_BUTTON>
+              <CUS_TB_STATUSBAR_BUTTON param_id="display_status_bar">
+                <TOOLTIP text="Display status bar"/>
+              </CUS_TB_STATUSBAR_BUTTON>
+              <CUS_TB_HANDLES_BUTTON param_id="display_handles">
+                <TOOLTIP text="Display rack handles"/>
+              </CUS_TB_HANDLES_BUTTON>
+              <CUS_TB_SCREWS_BUTTON param_id="display_screws">
+                <TOOLTIP text="Display screws"/>
+              </CUS_TB_SCREWS_BUTTON>
+              <CUS_TB_LOGO_BUTTON param_id="display_logo">
+                <TOOLTIP text="Display logo"/>
+              </CUS_TB_LOGO_BUTTON>
+              <THEME_SHOW_METERS_BUTTON param_id="$show_levels$">
+                <TOOLTIP text="Display level meters"/>
+              </THEME_SHOW_METERS_BUTTON>
+            </IMAGE_GROUP_BOX>
+            
+            <CELL height="5"/>
+
+            <!-- GUI Controls -->
+            <ROW width="100%">
+              <TEXT value="GUI Controls" font_weight="bold"/>
+              <CELL flex="1"/>
+              <IMAGE_ACTION_BUTTON image="$THEME_NAME$-Ext/toolbar/edit_script.png" image_scaling=".5" opaque_mouse_mask="true" action_id="OpenKUIMLFile" id="edit_kuiml_button" cursor="system::hand">
+                <TOOLTIP text="Edit Custom GUI"/>
+                <PARAM_LINK from="custom_gui_controls.display" to="edit_kuiml_button.display" reverse="true"/>
+              </IMAGE_ACTION_BUTTON>
+              <CUS_SMALL_LOCK_BUTTON param_id="gui_controls_lock">
+                <PARAM_TOOLTIP param_id="gui_controls_lock" content="Lock GUI controls options (prevent changes when loading presets) - {text_value}" />
+              </CUS_SMALL_LOCK_BUTTON>
+            </ROW>
+            <PARAM_MULTI_LINK from="gui_gen.enable_custom_gui;$script_gui_path$.length" formula="(x==0)" mux_function="min" to="custom_gui_controls.display"/>
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/edit/icons_bg.png" layout_type="column" width="100%" margin="7" spacing="5" ignore_mask_files="true">
+              <ROW spacing="5">
+                <THEME_CHECK_BOX param_id="gui_gen.enable_custom_gui"/>
+                <TEXT value="Custom Enabled" font_size="-1">
+                  <INVISIBLE_PARAM_BUTTON param_id="gui_gen.enable_custom_gui" width="100%" height="100%" cursor="system::hand">
+                    <TOOLTIP text="Use custom GUI when available"/>
+                  </INVISIBLE_PARAM_BUTTON>
+                </TEXT>
+              </ROW>
+              <ROW id="custom_gui_controls">
+                <CUS_TB_LAYOUT_BUTTON param_id="gui_gen.layout_type" reverse="true">
+                  <TOOLTIP text="Toggle row/column layout"/>
+                </CUS_TB_LAYOUT_BUTTON>
+                <CUS_TB_LAYOUT_CONTROLS_BUTTON param_id="gui_gen.controls_display_count">
+                  <PARAM_TOOLTIP content="Select controls per {text_value}"  param_id="gui_gen.layout_type"/>
+                </CUS_TB_LAYOUT_CONTROLS_BUTTON>
+                <CUS_TB_CONTROLS_STYLE_SELECT_BUTTON param_id="gui_gen.controls_style">
+                  <TOOLTIP text="Select controls style"/>
+                </CUS_TB_CONTROLS_STYLE_SELECT_BUTTON>
+                <CUS_TB_LAYOUT_SLOTS_BUTTON param_id="gui_gen.groups_display_count">
+                  <TOOLTIP text="Select number of controls per group"/>
+                </CUS_TB_LAYOUT_SLOTS_BUTTON>
+                <CUS_TB_METERS_STYLE_SELECT_BUTTON param_id="gui_gen.meters_style">
+                  <TOOLTIP text="Select meters style"/>
+                </CUS_TB_METERS_STYLE_SELECT_BUTTON>
+                <CUS_TB_GROUP_STYLE_SELECT_BUTTON param_id="gui_gen.grouping_style">
+                  <TOOLTIP text="Select Grouping style"/>
+                </CUS_TB_GROUP_STYLE_SELECT_BUTTON>
+                 <CUS_TB_TEXT_SIZE_BUTTON param_id="gui_gen.text_size">
+                  <TOOLTIP text="Select text size"/>
+                </CUS_TB_TEXT_SIZE_BUTTON>               
+                <CUS_TB_TEXT_COLOR_BUTTON param_id="gui_gen.text_color">
+                  <TOOLTIP text="Select text color"/>
+                </CUS_TB_TEXT_COLOR_BUTTON>
+              </ROW>
+            </IMAGE_GROUP_BOX>
+            
+            <CELL height="12"/>
+
+            <!-- Export -->
+            <IMAGE_GROUP_BOX image="$THEME_NAME$-Ext/edit/icons_bg.png" ignore_mask_files="true" width="100%" text_color="#42aff6" layout_type="layer_stack">
+              <ROW margin="8">
+                <IMAGE image="$THEME_NAME$-Ext/toolbar/plug.png" image_scaling=".5"/>   
+                <TEXT value="Export ..." font_weight="bold"/>
+              </ROW>
+              <INVISIBLE_PARAM_BUTTON param_id="export_window.visible" width="100%" height="100%" cursor="system::hand">
+                <TOOLTIP text="Export current script as a VST, VST3, AAX &amp; AU plug-in"/>
+              </INVISIBLE_PARAM_BUTTON>
+            </IMAGE_GROUP_BOX>
+            <CELL flex="1"/>
+          </IMAGE>
+          <CELL height="3"/>
+        </COLUMN>
+        <CELL width="3"/>
+      </WIDGET>
+    </IF_EDITABLE>
+  </ROW>
+</SKIN>

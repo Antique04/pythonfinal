@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN>
+<IF_EDITABLE><VARIABLE id="SCRIPT_DATA_PATH" value="F:\Git Deposits\pythonfinal\Taco Bell\anth attempt at noise\taco_bell-data"/></IF_EDITABLE>
+
+  <!-- Include KUIML code from the script data path so that it is copied upon export -->
+  <INCLUDE_ONCE file="$SCRIPT_DATA_PATH$/gui_include.inc"/>
+  <!-- Include scripts from the script data path so that it is copied upon export -->
+  <SCRIPT src="$SCRIPT_DATA_PATH$/gui_script.hxx"/>
+  <!-- using our own background image and knob image from the script data path so that it is copied upon export -->
+  <!-- The image uses the "layer_stack" layout type so that the knobs can be placed using absolute positions -->
+  <IMAGE image="$SCRIPT_DATA_PATH$/nineties.png" repeat="true" rotate="90" width="500" height="200" image_scaling="0.125" layout_type="layer_stack" opacity = "0.8" >
+  <IMAGE image="$SCRIPT_DATA_PATH$/Taco-Bell-Logo-1994.png" repeat="false" rotate="90" width="500" height="200" image_scaling="0.05" h_position="350" v_position="15">
+  
+      
+
+      <!--<IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="90" v_position="40" param_id="custom_param0" images_count="147" image_scaling=".6" pixel_range="300" cursor="system::hand"/>
+      <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="205" v_position="100" param_id="custom_param1" images_count="147" image_scaling=".8" pixel_range="400" cursor="system::hand"/>
+      <IMAGE_PARAM_KNOB image="$SCRIPT_DATA_PATH$/knob.png" h_position="342" v_position="40" param_id="custom_param2" images_count="147" image_scaling=".6" pixel_range="300" cursor="system::hand"/>
+      -->
+  
+  </IMAGE>
+  
+  <TEXT value="Created by Isaac Kraus and Anthony Eckert" font_size="20" text_h_align="left" text_color="white"  h_position="0" v_position="150" font_face="Time New Roman"/>
+  </IMAGE>
+
+</SKIN>

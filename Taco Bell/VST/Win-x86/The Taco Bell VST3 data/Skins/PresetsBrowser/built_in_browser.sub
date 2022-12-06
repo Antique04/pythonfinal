@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SKIN text_color="#ffffff" height="100%" margin="1">
+  <INCLUDE_ONCE file="$THEME_PATH$/presets_browser/tpl.preset_browser.inc"/>
+      <COLUMN height="100%">
+        <!-- Title -->
+       <WIDGET width="100%" text_color="#a0a0a0" font_weight="bold" background_color="#17191c" height="20" h_margin="2" layout_type="layer_stack">
+          <TEXT value="Presets" font_size="12"/>
+          <IMAGE_PARAM_BUTTON image="close.png" image_scaling=".5" opaque_mouse_mask="true" images_count="1" param_id="display_presets_browser" h_align="right" cursor="system::hand"/>
+      </WIDGET>
+       
+        <!-- preset browser -->
+        <CELL flex="1">
+          <TPL_PRESETS_FILES_BROWSER id="browser.presets_file_browser"
+          preset_icon="main_file_icon.svg" preset_icon_scaling=".8" dest_path_type="absolute_path" dest_file_path_string="current_preset.absolute_path" dest_load_action="RevertCurrentPreset"
+          root_path="$PLUGIN_DATA_PATH$/Presets/;$PLUGIN_USER_DOCUMENTS_PATH$/Presets/" default_dir_name="Presets" file_types="*.preset"/>
+        </CELL>
+      </COLUMN>
+</SKIN>

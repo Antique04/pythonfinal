@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg  width="8"
+   height="7"
+   viewBox="0 0 8 7">
+  <path
+     id="arrow"
+      fill="#2eff18"
+    fill-rule="evenodd"
+     d="M1.906,2H5.969L4.062,5H3.9Z" />
+</svg>
